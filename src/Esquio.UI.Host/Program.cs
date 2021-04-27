@@ -21,17 +21,11 @@ namespace Esquio.UI.Host
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                         .ConfigureAppConfiguration((hostingContext, configuration) =>
-                         {
-                             Log.Logger = new LoggerConfiguration()
-                                 .ReadFrom.Configuration(configuration.Build())
-                                 .CreateLogger();
-                         })
-                        .ConfigureLogging((hostingContext, logging) =>
-                        {
-                            logging.ClearProviders();
-                            logging.AddSerilog(dispose: true);
-                        });
+                         .UseAzureAppConfiguration();
+                })
+                .UseSerilog((hostContext, services, loggerConfig) =>
+                {
+                    loggerConfig.ConfigureSinks(hostContext, services);
                 });
     }
 }

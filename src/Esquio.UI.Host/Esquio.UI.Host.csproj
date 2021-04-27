@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityModel"/>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore"/>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+    <PackageReference Include="IdentityModel" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 
-    <PackageReference Include="Serilog.Extensions.Logging"/>
-    <PackageReference Include="Serilog.Settings.Configuration"/>
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
-    <PackageReference Include="Serilog.Sinks.Console"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
 
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
@@ -23,5 +23,7 @@
     <ProjectReference Include="..\Esquio.AspNetCore\Esquio.AspNetCore.csproj" />
     <ProjectReference Include="..\Esquio.UI.Api\Esquio.UI.Api.csproj" />
     <ProjectReference Include="..\Esquio.UI.Client\Esquio.UI.Client.csproj" />
+    <ProjectReference Include="..\Logging.Extensions\Logging.Extensions.csproj" />
+    <ProjectReference Include="..\WebHost.Extensions.ConfigurationProviders\WebHost.Extensions.ConfigurationProviders.csproj" />
   </ItemGroup>
   </Project>
