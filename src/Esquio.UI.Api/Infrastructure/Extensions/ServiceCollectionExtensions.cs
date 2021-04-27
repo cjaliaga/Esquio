@@ -112,6 +112,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 setup.MaxBatchSize(10);
                 setup.EnableRetryOnFailure();
                 setup.MigrationsAssembly(typeof(DesignTimeContextFactory).Assembly.FullName);
+                setup.MigrationsHistoryTable("__EFMigrationsHistory", "esquio");
             });
         }
         public static DbContextOptionsBuilder SetupNpgSql(this DbContextOptionsBuilder contextOptionsBuilder, string connectionString)

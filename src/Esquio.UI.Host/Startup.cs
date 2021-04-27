@@ -1,4 +1,5 @@
 using Esquio.UI.Api;
+using Esquio.UI.Api.Infrastructure.Data.Options;
 using Esquio.UI.Api.Infrastructure.HostedService;
 using Esquio.UI.Api.Infrastructure.Services;
 using Esquio.UI.Api.Infrastructure.Settings;
@@ -80,7 +81,11 @@ namespace Esquio.UI.Host
 
             EsquioUIApiConfiguration.ConfigureServices(services, Configuration)
                 .AddEntityFramework(Configuration, Environment)
-                .AddHostedService<EsquioMetricsConsumer>();
+                .AddHostedService<EsquioMetricsConsumer>()
+                .Configure<StoreOptions>(options =>
+                {
+                    options.DefaultSchema = "esquio";
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersion)
