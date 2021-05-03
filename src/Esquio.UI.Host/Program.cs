@@ -1,5 +1,7 @@
 using Esquio.UI.Host.Infrastructure.Data.Seed;
+using Esquio.UI.Host.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -21,11 +23,26 @@ namespace Esquio.UI.Host
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                         .UseAzureAppConfiguration();
-                })
-                .UseSerilog((hostContext, services, loggerConfig) =>
-                {
-                    loggerConfig.ConfigureSinks(hostContext, services);
+                         .ConfigureAppConfiguration((hostingContext, configurationBuilder) =>
+                         {
+                             var configuration = configurationBuilder.Build();
+                             var appConfigurationOptions = configuration.GetAzureAppConfigurationOptions();
+
+                             if (appConfigurationOptions.Enabled)
+                             {
+                                 configurationBuilder.AddAzureAppConfiguration(appConfigurationOptions);
+                                 configuration = configurationBuilder.Build();
+                             }
+
+                             Log.Logger = new LoggerConfiguration()
+                                 .ReadFrom.Configuration(configuration)
+                                 .CreateLogger();
+                         })
+                        .ConfigureLogging((hostingContext, logging) =>
+                        {
+                            logging.ClearProviders();
+                            logging.AddSerilog(dispose: true);
+                        });
                 });
     }
 }
